@@ -12,6 +12,9 @@ library(tidyverse)
 library(caret)
 library(glmnet)
 library(splines)
+library(ISLR)
+library(boot)
+library(mgcv)
 ```
 
 Data Import 
@@ -39,7 +42,6 @@ featurePlot(x, y, plot = "scatter", labels = c("","compressive strength"),
             type = c("p"), layout = c(4, 2))
 ```
 
-
 #Part B
 
 ```{r}
@@ -51,17 +53,49 @@ fit4 <- lm(compressive_strength~poly(water,4), data = concrete)
 ```
 
 ```{r}
-#cross validation to determine polynomial degree
-set.seed(123)
-cv <- cv.glmnet(x, y,
-                alpha = 0,
-                lambda = exp(seq(1, 4, length = 100)),
-                type.measure = "mse")
+#cross validation with K=10 to determine polynomial degree
+ctrl1 <- trainControl(method = "cv", number = 10)
 
-plot(cv)
+set.seed(1)
+
+lmFit1 <- train(compressive_strength~water,
+                data = concrete,
+                method = "lm",
+                trControl = ctrl1)
+lmFit1
+
+lmFit2 <- train(compressive_strength~water^2,
+                data = concrete,
+                method = "lm",
+                trControl = ctrl1)
+lmFit2
+
+lmFit3 <- train(compressive_strength~water^3,
+                data = concrete,
+                method = "lm",
+                trControl = ctrl1)
+lmFit3
+
+lmFit4 <- train(compressive_strength~water^4,
+                data = concrete,
+                method = "lm",
+                trControl = ctrl1)
+lmFit4
 ```
 
-Because the ISE...
+Comparing models using the resamples function
+
+```{r}
+resamp <- resamples(list(lm1 = lmFit1, lm2 = lmFit2, lm3 = lmFit3, lm4 = lmFit4))
+summary(resamp)
+```
+
+```{r}
+modelDifferences <- diff(resamp)
+summary(modelDifferences)
+```
+
+The cross validation approach produced models with very similar RMSE values. While models with the exponent of 2 and 3 for water are the lowest they aren't by much. With that being said, the r squared value for the exponent 4 is the highest indicating that the differences in compressive_strength is more explained by water^4 than any other polynomial function. Therefore lets confirm using the anova test.
 
 ```{r}
 anova(fit1,fit2,fit3,fit4) 
@@ -74,28 +108,52 @@ plot(fit2) +
 plot(fit3) +
 plot(fit4) 
 ```
+Using the anova test, models with an exponent of 2, 3, and 4 are significant. However, lets use d=2 since we want the most parsimonious model. 
 
 #Part C
 
 ```{r}
-#Generating Test Data
-waterlims <- range(concrete$water)
-water.grid <- seq(from=waterlims[1], to = waterlims[2])
+#Use cross validation to find degrees of freedom 
+fit.ss <- smooth.spline(concrete$water, concrete$compressive_strength)
+fit.ss$df
+
+pred.smooth <- predict(fit.ss, x = water.grid)
+pred.smooth.df <- data.frame(pred = pred.ss$y,
+                         water = water.grid)
+
+fitplot <- ggplot(data = concrete, aes(x = water, y = compressive_strength)) +
+  geom_point(color = rgb(.2, .2, .4, .1)) + geom_line(aes(x = water, y = pred), data = pred.smooth.df, 
+              color = rgb(.8, .1, .1, 1)) + theme_bw() 
+fitplot
+```
+
+Here we will fit for different degrees of freedom for 2 to 10. 
+
+```{r}
+par(mfrow = c(3,3)) # 3 x 3 grid
+all.dfs = rep(NA, 9)
+for (i in 2:10) {
+  fit.ss = smooth.spline(concrete_df$Water, concrete_df$CompressiveStrength, df = i)
+  
+  pred.ss <- predict(fit.ss, x = water.grid)
+  
+  plot(concrete_df$Water, concrete_df$CompressiveStrength, cex = .5, col = "darkgrey")
+  title(paste("Degrees of freedom = ", round(fit.ss$df)),  outer = F)
+  lines(water.grid, pred.ss$y, lwd = 2, col = "blue")
+}
+```
+
+```{r}
 #fit 1
-fit.ss1 <- smooth.spline(concrete$water, concrete$compressive_strength, df = 50)
+fit.ss1 <- smooth.spline(concrete$water, concrete$compressive_strength, df = 58)
 fit.ss1
 pred.ss1 <- predict(fit.ss1, x = water.grid)
 pred.ss.df1 <- data.frame(pred = pred.ss1$y, water = water.grid)
 #fit 2
-fit.ss2 <- smooth.spline(concrete$water, concrete$compressive_strength, df = 60)
+fit.ss2 <- smooth.spline(concrete$water, concrete$compressive_strength, df = 78)
 fit.ss2
 pred.ss2 <- predict(fit.ss2, x = water.grid)
 pred.ss.df2 <- data.frame(pred = pred.ss2$y, water = water.grid)
-#fit 3
-fit.ss3 <- smooth.spline(concrete$water, concrete$compressive_strength, df = 70)
-fit.ss3
-pred.ss3 <- predict(fit.ss3, x = water.grid)
-pred.ss.df3 <- data.frame(pred = pred.ss3$y, water = water.grid)
 #cv fit
 fit.ss <- smooth.spline(concrete$water, concrete$compressive_strength)
 fit.ss
@@ -114,15 +172,21 @@ smooth_fits <- plot1 + geom_line(aes(x = water, y = pred), data = pred.ss.df1,
 smooth_fits
 ```
 
-###(d) Fit a GAM using all the predictors. Plot the results and explain your findings.
+#Part D
+
 ```{r}
-library(mgcv)
 gam.m1 <- gam(compressive_strength ~ cement + blast_furnace_slag + fly_ash + water + superplasticizer + coarse_aggregate + fine_aggregate + age, data = concrete)
+
 gam.m2 <- gam(compressive_strength ~ cement + blast_furnace_slag + fly_ash + s(water) + superplasticizer + coarse_aggregate + fine_aggregate + age, data = concrete)
+
 anova(gam.m1, gam.m2, test = "F")
+```
+
+```{r}
 plot(gam.m2)
-vis.gam(gam.m2, view = c("water", "fly_ash"), 
+
+vis.gam(gam.m2, view = c("water", "fine_aggregate"), 
         plot.type = "contour", color = "topo")
-vis.gam(gam.m2, view = c("fine_aggregate","coarse_aggregate"), 
+vis.gam(gam.m2, view = c("water","coarse_aggregate"),
         plot.type = "contour", color = "topo")
 ```
