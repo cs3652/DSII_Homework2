@@ -64,19 +64,19 @@ lmFit1 <- train(compressive_strength~water,
                 trControl = ctrl1)
 lmFit1
 
-lmFit2 <- train(compressive_strength~water^2,
+lmFit2 <- train(compressive_strength~water + water^2,
                 data = concrete,
                 method = "lm",
                 trControl = ctrl1)
 lmFit2
 
-lmFit3 <- train(compressive_strength~water^3,
+lmFit3 <- train(compressive_strength~water + water^2 + water^3,
                 data = concrete,
                 method = "lm",
                 trControl = ctrl1)
 lmFit3
 
-lmFit4 <- train(compressive_strength~water^4,
+lmFit4 <- train(compressive_strength~water + water^2 + water^3 + water^4,
                 data = concrete,
                 method = "lm",
                 trControl = ctrl1)
@@ -95,7 +95,19 @@ modelDifferences <- diff(resamp)
 summary(modelDifferences)
 ```
 
-The cross validation approach produced models with very similar RMSE values. While models with the exponent of 2 and 3 for water are the lowest they aren't by much. With that being said, the r squared value for the exponent 4 is the highest indicating that the differences in compressive_strength is more explained by water^4 than any other polynomial function. Therefore lets confirm using the anova test.
+```{r}
+set.seed(1)
+
+mseK <- rep(NA, 4)
+for (i in 1:4) {
+    fit <- glm(compressive_strength ~ poly(water, i), data = concrete)
+    mseK[i] <- cv.glm(concrete, fit, K = 10)$delta[1]
+}
+
+plot(1:4, mseK, xlab = "Exponent", ylab = "Test MSE", type = "l")
+```
+
+The cross validation approach produced models with very similar RMSE values. While models with the exponent of 2 and 3 for water are the lowest they aren't by much. With that being said, the r squared value for the exponent 4 is the highest indicating that the differences in compressive_strength is more explained by water^4 than any other polynomial function. Using the for loop, the cross validation provided an exponent of 4 as the best polynomial function. Therefore lets confirm using the anova test.
 
 ```{r}
 anova(fit1,fit2,fit3,fit4) 
@@ -108,6 +120,7 @@ plot(fit2) +
 plot(fit3) +
 plot(fit4) 
 ```
+
 Using the anova test, models with an exponent of 2, 3, and 4 are significant. However, lets use d=2 since we want the most parsimonious model. 
 
 #Part C
