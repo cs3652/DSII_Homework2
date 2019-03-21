@@ -1,0 +1,520 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={DSII\_homework2},
+            pdfauthor={Chirag Shah},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{DSII\_homework2}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Chirag Shah}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{2019-03-19}
+
+
+\begin{document}
+\maketitle
+
+Data Import
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{concrete =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"concrete.csv"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{janitor}\OperatorTok{::}\KeywordTok{clean_names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   Cement = col_double(),
+##   BlastFurnaceSlag = col_double(),
+##   FlyAsh = col_double(),
+##   Water = col_double(),
+##   Superplasticizer = col_double(),
+##   CoarseAggregate = col_double(),
+##   FineAggregate = col_double(),
+##   Age = col_integer(),
+##   CompressiveStrength = col_double()
+## )
+\end{verbatim}
+
+\section{Part A}\label{part-a}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# matrix of predictors }
+\NormalTok{x <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(compressive_strength}\OperatorTok{~}\NormalTok{.,concrete)[,}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\CommentTok{# vector of response}
+\NormalTok{y <-}\StringTok{ }\NormalTok{concrete}\OperatorTok{$}\NormalTok{compressive_strength}
+\NormalTok{theme1 <-}\StringTok{ }\KeywordTok{trellis.par.get}\NormalTok{()}
+\NormalTok{theme1}\OperatorTok{$}\NormalTok{plot.symbol}\OperatorTok{$}\NormalTok{col <-}\StringTok{ }\KeywordTok{rgb}\NormalTok{(.}\DecValTok{2}\NormalTok{, .}\DecValTok{4}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{5}\NormalTok{)}
+\NormalTok{theme1}\OperatorTok{$}\NormalTok{plot.symbol}\OperatorTok{$}\NormalTok{pch <-}\StringTok{ }\DecValTok{16}
+\NormalTok{theme1}\OperatorTok{$}\NormalTok{plot.line}\OperatorTok{$}\NormalTok{col <-}\StringTok{ }\KeywordTok{rgb}\NormalTok{(.}\DecValTok{8}\NormalTok{, .}\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{theme1}\OperatorTok{$}\NormalTok{plot.line}\OperatorTok{$}\NormalTok{lwd <-}\StringTok{ }\DecValTok{2}
+\NormalTok{theme1}\OperatorTok{$}\NormalTok{strip.background}\OperatorTok{$}\NormalTok{col <-}\StringTok{ }\KeywordTok{rgb}\NormalTok{(.}\DecValTok{0}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{6}\NormalTok{, .}\DecValTok{2}\NormalTok{)}
+\KeywordTok{trellis.par.set}\NormalTok{(theme1)}
+\KeywordTok{featurePlot}\NormalTok{(x, y, }\DataTypeTok{plot =} \StringTok{"scatter"}\NormalTok{, }\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{""}\NormalTok{,}\StringTok{"compressive strength"}\NormalTok{),}
+            \DataTypeTok{type =} \KeywordTok{c}\NormalTok{(}\StringTok{"p"}\NormalTok{), }\DataTypeTok{layout =} \KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{dsII_hw2_cs3652_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\section{Part B}\label{part-b}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#polynomial regression}
+\NormalTok{fit1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(compressive_strength}\OperatorTok{~}\NormalTok{water, }\DataTypeTok{data =}\NormalTok{ concrete)}
+\NormalTok{fit2 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(compressive_strength}\OperatorTok{~}\KeywordTok{poly}\NormalTok{(water,}\DecValTok{2}\NormalTok{), }\DataTypeTok{data =}\NormalTok{ concrete) }
+\NormalTok{fit3 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(compressive_strength}\OperatorTok{~}\KeywordTok{poly}\NormalTok{(water,}\DecValTok{3}\NormalTok{), }\DataTypeTok{data =}\NormalTok{ concrete) }
+\NormalTok{fit4 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(compressive_strength}\OperatorTok{~}\KeywordTok{poly}\NormalTok{(water,}\DecValTok{4}\NormalTok{), }\DataTypeTok{data =}\NormalTok{ concrete) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+
+\NormalTok{mseK <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{4}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{) \{}
+\NormalTok{    fit <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(compressive_strength }\OperatorTok{~}\StringTok{ }\KeywordTok{poly}\NormalTok{(water, i), }\DataTypeTok{data =}\NormalTok{ concrete)}
+\NormalTok{    mseK[i] <-}\StringTok{ }\KeywordTok{cv.glm}\NormalTok{(concrete, fit, }\DataTypeTok{K =} \DecValTok{10}\NormalTok{)}\OperatorTok{$}\NormalTok{delta[}\DecValTok{1}\NormalTok{]}
+\NormalTok{\}}
+
+\KeywordTok{plot}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{, mseK, }\DataTypeTok{xlab =} \StringTok{"Exponent"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Test MSE"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{dsII_hw2_cs3652_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+The cross validation approach produced models with very similar RMSE
+values. While models with the exponent of 2 and 3 for water are the
+lowest they aren't by much. With that being said, the r squared value
+for the exponent 4 is the highest indicating that the differences in
+compressive\_strength is more explained by water\^{}4 than any other
+polynomial function. Using the for loop, the cross validation provided
+an exponent of 4 as the best polynomial function. Therefore lets confirm
+using the anova test.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(fit1,fit2,fit3,fit4) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: compressive_strength ~ water
+## Model 2: compressive_strength ~ poly(water, 2)
+## Model 3: compressive_strength ~ poly(water, 3)
+## Model 4: compressive_strength ~ poly(water, 4)
+##   Res.Df    RSS Df Sum of Sq      F    Pr(>F)    
+## 1   1028 263085                                  
+## 2   1027 247712  1   15372.8 68.140 4.652e-16 ***
+## 3   1026 235538  1   12174.0 53.962 4.166e-13 ***
+## 4   1025 231246  1    4291.5 19.022 1.423e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ concrete, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ water, }\DataTypeTok{y =}\NormalTok{ compressive_strength)) }\OperatorTok{+}
+\StringTok{     }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(.}\DecValTok{2}\NormalTok{, .}\DecValTok{4}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{5}\NormalTok{))}
+\NormalTok{plot1}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{dsII_hw2_cs3652_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+Using the anova test, models with an exponent of 2, 3, and 4 are
+significant. However, lets use d=2 since we want the most parsimonious
+model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(compressive_strength }\OperatorTok{~}\StringTok{ }\NormalTok{water, }\DataTypeTok{data =}\NormalTok{ concrete, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\NormalTok{waterlims <-}\StringTok{ }\KeywordTok{range}\NormalTok{(concrete}\OperatorTok{$}\NormalTok{water)}
+\NormalTok{water.grid <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =}\NormalTok{ waterlims[}\DecValTok{1}\NormalTok{], }\DataTypeTok{to =}\NormalTok{ waterlims[}\DecValTok{2}\NormalTok{], }\DataTypeTok{by =} \DecValTok{1}\NormalTok{)}
+
+\NormalTok{preds1 <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit1, }\DataTypeTok{newdata =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{water =}\NormalTok{ water.grid))}
+\NormalTok{preds2 <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit2, }\DataTypeTok{newdata =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{water =}\NormalTok{ water.grid))}
+\NormalTok{preds3 <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit3, }\DataTypeTok{newdata =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{water =}\NormalTok{ water.grid))}
+\NormalTok{preds4 <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit4, }\DataTypeTok{newdata =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{water =}\NormalTok{ water.grid))}
+
+\KeywordTok{lines}\NormalTok{(water.grid, preds1, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(water.grid, preds2, }\DataTypeTok{col =} \StringTok{"purple"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(water.grid, preds3, }\DataTypeTok{col =} \StringTok{"green"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(water.grid, preds4, }\DataTypeTok{col =} \StringTok{"brown"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{dsII_hw2_cs3652_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\section{Part C}\label{part-c}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(compressive_strength }\OperatorTok{~}\StringTok{ }\NormalTok{water, }\DataTypeTok{data =}\NormalTok{ concrete, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
+
+\NormalTok{waterlims <-}\StringTok{ }\KeywordTok{range}\NormalTok{(concrete}\OperatorTok{$}\NormalTok{water)}
+\NormalTok{water.grid <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =}\NormalTok{ waterlims[}\DecValTok{1}\NormalTok{], }\DataTypeTok{to =}\NormalTok{ waterlims[}\DecValTok{2}\NormalTok{], }\DataTypeTok{by =} \DecValTok{1}\NormalTok{)}
+\NormalTok{fit <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(compressive_strength }\OperatorTok{~}\StringTok{ }\KeywordTok{poly}\NormalTok{(water, }\DecValTok{4}\NormalTok{), }\DataTypeTok{data =}\NormalTok{ concrete)}
+\NormalTok{preds <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit, }\DataTypeTok{newdata =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{water =}\NormalTok{ water.grid))}
+\KeywordTok{lines}\NormalTok{(water.grid, preds, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{dsII_hw2_cs3652_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit.ss <-}\StringTok{ }\KeywordTok{smooth.spline}\NormalTok{(concrete}\OperatorTok{$}\NormalTok{water, concrete}\OperatorTok{$}\NormalTok{compressive_strength)}
+\NormalTok{fit.ss}\OperatorTok{$}\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 68.88205
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.ss <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit.ss, }\DataTypeTok{x =}\NormalTok{ water.grid)}
+\NormalTok{pred.ss.df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.ss}\OperatorTok{$}\NormalTok{y,}
+                         \DataTypeTok{water =}\NormalTok{ water.grid)}
+
+\NormalTok{p <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ concrete, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ water, }\DataTypeTok{y =}\NormalTok{ compressive_strength)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(.}\DecValTok{2}\NormalTok{, .}\DecValTok{4}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{5}\NormalTok{))}
+\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ water, }\DataTypeTok{y =}\NormalTok{ pred), }\DataTypeTok{data =}\NormalTok{ pred.ss.df, }
+              \DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(.}\DecValTok{8}\NormalTok{, .}\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{'Select degrees of freedom using GCV'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{dsII_hw2_cs3652_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+Here we will fit for different degrees of freedom for 2 to 10.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)) }\CommentTok{# 3 x 3 grid}
+\NormalTok{all.dfs =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{9}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{  fit.ss =}\StringTok{ }\KeywordTok{smooth.spline}\NormalTok{(concrete}\OperatorTok{$}\NormalTok{water, concrete}\OperatorTok{$}\NormalTok{compressive_strength, }\DataTypeTok{df =}\NormalTok{ i)}
+  
+\NormalTok{  pred.ss <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit.ss, }\DataTypeTok{x =}\NormalTok{ water.grid)}
+  
+  \KeywordTok{plot}\NormalTok{(concrete}\OperatorTok{$}\NormalTok{water, concrete}\OperatorTok{$}\NormalTok{compressive_strength, }\DataTypeTok{cex =}\NormalTok{ .}\DecValTok{5}\NormalTok{, }\DataTypeTok{col =} \StringTok{"darkgrey"}\NormalTok{)}
+  \KeywordTok{title}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"Degrees of freedom = "}\NormalTok{, }\KeywordTok{round}\NormalTok{(fit.ss}\OperatorTok{$}\NormalTok{df)),  }\DataTypeTok{outer =}\NormalTok{ F)}
+  \KeywordTok{lines}\NormalTok{(water.grid, pred.ss}\OperatorTok{$}\NormalTok{y, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{dsII_hw2_cs3652_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Use cross validation to find degrees of freedom }
+\NormalTok{fit.ss <-}\StringTok{ }\KeywordTok{smooth.spline}\NormalTok{(concrete}\OperatorTok{$}\NormalTok{water, concrete}\OperatorTok{$}\NormalTok{compressive_strength)}
+\NormalTok{fit.ss}\OperatorTok{$}\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 68.88205
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.smooth <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit.ss, }\DataTypeTok{x =}\NormalTok{ water.grid)}
+\NormalTok{pred.smooth.df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.ss}\OperatorTok{$}\NormalTok{y,}
+                         \DataTypeTok{water =}\NormalTok{ water.grid)}
+
+\NormalTok{fitplot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ concrete, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ water, }\DataTypeTok{y =}\NormalTok{ compressive_strength)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(.}\DecValTok{2}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{4}\NormalTok{, .}\DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ water, }\DataTypeTok{y =}\NormalTok{ pred), }\DataTypeTok{data =}\NormalTok{ pred.smooth.df, }
+              \DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(.}\DecValTok{8}\NormalTok{, .}\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{() }
+\NormalTok{fitplot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{dsII_hw2_cs3652_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#fit 1}
+\NormalTok{fit.ss1 <-}\StringTok{ }\KeywordTok{smooth.spline}\NormalTok{(concrete}\OperatorTok{$}\NormalTok{water, concrete}\OperatorTok{$}\NormalTok{compressive_strength, }\DataTypeTok{df =} \DecValTok{10}\NormalTok{)}
+\NormalTok{fit.ss1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## smooth.spline(x = concrete$water, y = concrete$compressive_strength, 
+##     df = 10)
+## 
+## Smoothing Parameter  spar= 0.8687676  lambda= 0.001391258 (11 iterations)
+## Equivalent Degrees of Freedom (Df): 10.00132
+## Penalized Criterion (RSS): 81156.22
+## GCV: 221.8629
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.ss1 <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit.ss1, }\DataTypeTok{x =}\NormalTok{ water.grid)}
+\NormalTok{pred.ss.df1 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.ss1}\OperatorTok{$}\NormalTok{y, }\DataTypeTok{water =}\NormalTok{ water.grid)}
+\CommentTok{#fit 2}
+\NormalTok{fit.ss2 <-}\StringTok{ }\KeywordTok{smooth.spline}\NormalTok{(concrete}\OperatorTok{$}\NormalTok{water, concrete}\OperatorTok{$}\NormalTok{compressive_strength, }\DataTypeTok{df =} \DecValTok{30}\NormalTok{)}
+\NormalTok{fit.ss2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## smooth.spline(x = concrete$water, y = concrete$compressive_strength, 
+##     df = 30)
+## 
+## Smoothing Parameter  spar= 0.5500421  lambda= 6.929549e-06 (11 iterations)
+## Equivalent Degrees of Freedom (Df): 30.00244
+## Penalized Criterion (RSS): 59933.93
+## GCV: 208.9676
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.ss2 <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit.ss2, }\DataTypeTok{x =}\NormalTok{ water.grid)}
+\NormalTok{pred.ss.df2 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.ss2}\OperatorTok{$}\NormalTok{y, }\DataTypeTok{water =}\NormalTok{ water.grid)}
+\CommentTok{#fit 3}
+\NormalTok{fit.ss3 <-}\StringTok{ }\KeywordTok{smooth.spline}\NormalTok{(concrete}\OperatorTok{$}\NormalTok{water, concrete}\OperatorTok{$}\NormalTok{compressive_strength, }\DataTypeTok{df =} \DecValTok{50}\NormalTok{)}
+\NormalTok{fit.ss3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## smooth.spline(x = concrete$water, y = concrete$compressive_strength, 
+##     df = 50)
+## 
+## Smoothing Parameter  spar= 0.3836017  lambda= 4.347305e-07 (11 iterations)
+## Equivalent Degrees of Freedom (Df): 50.00509
+## Penalized Criterion (RSS): 46068.79
+## GCV: 202.715
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.ss3 <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit.ss3, }\DataTypeTok{x =}\NormalTok{ water.grid)}
+\NormalTok{pred.ss.df3 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.ss3}\OperatorTok{$}\NormalTok{y, }\DataTypeTok{water =}\NormalTok{ water.grid)}
+\CommentTok{#cv fit}
+\NormalTok{fit.ss <-}\StringTok{ }\KeywordTok{smooth.spline}\NormalTok{(concrete}\OperatorTok{$}\NormalTok{water, concrete}\OperatorTok{$}\NormalTok{compressive_strength)}
+\NormalTok{fit.ss}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## smooth.spline(x = concrete$water, y = concrete$compressive_strength)
+## 
+## Smoothing Parameter  spar= 0.2578404  lambda= 5.371698e-08 (11 iterations)
+## Equivalent Degrees of Freedom (Df): 68.88205
+## Penalized Criterion (RSS): 36681.64
+## GCV: 200.2892
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.ss <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fit.ss, }\DataTypeTok{x =}\NormalTok{ water.grid)}
+\NormalTok{pred.ss.df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.ss}\OperatorTok{$}\NormalTok{y, }\DataTypeTok{water =}\NormalTok{ water.grid)}
+\CommentTok{#plot of fits}
+\NormalTok{scatter <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ concrete, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ water, }\DataTypeTok{y =}\NormalTok{ compressive_strength)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(.}\DecValTok{2}\NormalTok{, .}\DecValTok{4}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{5}\NormalTok{))}
+\NormalTok{smooth_fits <-}\StringTok{ }\NormalTok{scatter }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ water, }\DataTypeTok{y =}\NormalTok{ pred), }\DataTypeTok{data =}\NormalTok{ pred.ss.df1,}
+          \DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(.}\DecValTok{8}\NormalTok{, .}\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ water, }\DataTypeTok{y =}\NormalTok{ pred), }\DataTypeTok{data =}\NormalTok{ pred.ss.df2,}
+          \DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ water, }\DataTypeTok{y =}\NormalTok{ pred), }\DataTypeTok{data =}\NormalTok{ pred.ss.df3,}
+          \DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ water, }\DataTypeTok{y =}\NormalTok{ pred), }\DataTypeTok{data =}\NormalTok{ pred.ss.df,}
+          \DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(.}\DecValTok{2}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme_bw}\NormalTok{()}
+\NormalTok{smooth_fits}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{dsII_hw2_cs3652_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\section{Part D}\label{part-d}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gam.m1 <-}\StringTok{ }\KeywordTok{gam}\NormalTok{(compressive_strength }\OperatorTok{~}\StringTok{ }\NormalTok{cement }\OperatorTok{+}\StringTok{ }\NormalTok{blast_furnace_slag }\OperatorTok{+}\StringTok{ }\NormalTok{fly_ash }\OperatorTok{+}\StringTok{ }\NormalTok{water }\OperatorTok{+}\StringTok{ }\NormalTok{superplasticizer }\OperatorTok{+}\StringTok{ }\NormalTok{coarse_aggregate }\OperatorTok{+}\StringTok{ }\NormalTok{fine_aggregate }\OperatorTok{+}\StringTok{ }\NormalTok{age, }\DataTypeTok{data =}\NormalTok{ concrete)}
+
+\NormalTok{gam.m2 <-}\StringTok{ }\KeywordTok{gam}\NormalTok{(compressive_strength }\OperatorTok{~}\StringTok{ }\NormalTok{cement }\OperatorTok{+}\StringTok{ }\NormalTok{blast_furnace_slag }\OperatorTok{+}\StringTok{ }\NormalTok{fly_ash }\OperatorTok{+}\StringTok{ }\KeywordTok{s}\NormalTok{(water) }\OperatorTok{+}\StringTok{ }\NormalTok{superplasticizer }\OperatorTok{+}\StringTok{ }\NormalTok{coarse_aggregate }\OperatorTok{+}\StringTok{ }\NormalTok{fine_aggregate }\OperatorTok{+}\StringTok{ }\NormalTok{age, }\DataTypeTok{data =}\NormalTok{ concrete)}
+
+\KeywordTok{anova}\NormalTok{(gam.m1, gam.m2, }\DataTypeTok{test =} \StringTok{"F"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Deviance Table
+## 
+## Model 1: compressive_strength ~ cement + blast_furnace_slag + fly_ash + 
+##     water + superplasticizer + coarse_aggregate + fine_aggregate + 
+##     age
+## Model 2: compressive_strength ~ cement + blast_furnace_slag + fly_ash + 
+##     s(water) + superplasticizer + coarse_aggregate + fine_aggregate + 
+##     age
+##   Resid. Df Resid. Dev     Df Deviance      F   Pr(>F)    
+## 1    1021.0     110413                                    
+## 2    1013.4     106140 7.5562   4272.8 5.4038 2.01e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(gam.m2)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{dsII_hw2_cs3652_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{vis.gam}\NormalTok{(gam.m2, }\DataTypeTok{view =} \KeywordTok{c}\NormalTok{(}\StringTok{"water"}\NormalTok{, }\StringTok{"fine_aggregate"}\NormalTok{), }
+        \DataTypeTok{plot.type =} \StringTok{"contour"}\NormalTok{, }\DataTypeTok{color =} \StringTok{"topo"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{dsII_hw2_cs3652_files/figure-latex/unnamed-chunk-13-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{vis.gam}\NormalTok{(gam.m2, }\DataTypeTok{view =} \KeywordTok{c}\NormalTok{(}\StringTok{"water"}\NormalTok{,}\StringTok{"coarse_aggregate"}\NormalTok{),}
+        \DataTypeTok{plot.type =} \StringTok{"contour"}\NormalTok{, }\DataTypeTok{color =} \StringTok{"topo"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{dsII_hw2_cs3652_files/figure-latex/unnamed-chunk-13-3.pdf}
+
+
+\end{document}
